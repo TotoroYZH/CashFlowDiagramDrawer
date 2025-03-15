@@ -9,9 +9,11 @@ CashFlowDiagramDrawer-main/
 ├── README.md
 ├── LICENCE
 ├── CHANGELOG.md
-├── cash_flow_diagram.exe
+├── main_window.exe
 ├── cash_flow_diagram.py
+├── main_window.py
 ├── data.xlsx
+├── colors.txt
 ├── CashFlowDiagram.png
 ├── icon.ico
 └── md_pic/
@@ -25,10 +27,12 @@ CashFlowDiagramDrawer-main/
 | README.md                      | 项目的说明文件                                          |
 | LICENCE                        | 项目的开源协议                                          |
 | CHANGELOG.md                   | 项目的更新日志                                          |
-| cash_flow_diagram.exe          | 绘图工具的可执行文件                                     |
+| main_window.exe                | 绘图工具的可执行文件                                     |
 | cash_flow_diagram.py           | 绘图工具的Python源代码                                   |
+| main_window.py                 | 绘图工具的Python源代码                                   |
 | data.xlsx                      | 数据文件的模板案例                                       |
-| CashFlowDiagram.png            | 绘图工具根据data.xlsx生成的现金流量图                     |
+| colors.txt                     | 颜色设置文件的模板案例                                    |
+| CashFlowDiagram.png            | 绘图工具根据data.xlsx和colors.txt用默认参数生成的现金流量图 |
 | icon.ico                       | 可执行文件的图标                                         |
 | md_pic                         | README.md中的图片源                                     |
 
@@ -52,37 +56,18 @@ CashFlowDiagramDrawer-main/
 
    下面我们给出两种方案来运行绘图工具程序：
 
-   **方案1**：直接运行可执行文件。这需要你严格按照所有要求提供`data.xlsx`数据文件且构建文件目录结构。一种可行的文件目录结构如下：
+   **方案1**：直接运行可执行文件。具体的绘图参数可以在UI界面上设置。
 
-   ```dash
-   Cash Flow Diagram/
-   ├── cash_flow_diagram.exe
-   └── data.xlsx
-   ```
-
-   在这种情况下，数据文件必须命名为`data.xlsx`且与`cash_flow_diagram.exe`处在同一路径下，且绘图数据必须存放在`data.xlsx`中名为`Cash Flow Diagram`的Sheet中。
-
-   在这种情况下，双击`cash_flow_diagram.exe`，会跳出Matplotlib的显示窗口。点击下方Save the figure按钮<img src="md_pic/Save the figure.png" alt="img" style="zoom:50%;" />，即可导出绘制出的现金流量图的`.png`文件。
-
-   **方案2**：对Python源代码文件进行修改后再运行。这需要你拥有合适的Python3环境和相关第三方库。
+   **方案2**：对Python源代码文件进行修改后再运行。这需要你拥有合适的Python3环境和相关第三方库，并且保证`main_window.py`和`cash_flow_diagram.py`处在同一目录下。
 
    | 第三方库     | 下载第三方库的pip指令     | 备注                                     |
    | ------------ | ------------------------- | ---------------------------------------- |
    | `pandas`     | `pip install pandas`      |                                          |
    | `xlrd`       | `pip install xlrd==1.2.0` | 只有2.0以下版本的xlrd才支持读取.xlsx文件 |
    | `matplotlib` | `pip install matplotlib`  |                                          |
+   | `PYQt5`      | `pip install PyQt5`       |                                          |
 
-   我们可以通过修改源代码内`my_drawer`对象的创建函数的实参来改变数据文件路径、数据所在Sheet。
-
-   如，设定数据文件路径为`'C:/Users/Username/Documents/example.xlsx'`，数据所在Sheet名称为`'example'`，可以修改源代码倒数第2行的代码`my_drawer = Drawer()`为：
-
-   ```python
-   my_drawer = Drawer(rd='C:/Users/Username/Documents/example.xlsx',sheet_name='example')
-   ```
-
-   如果不修改，默认读取与`cash_flow_diagram.py`在同一路径下的名为`data.xlsx`文件中的名为`Cash Flow Diagram`的Sheet作为绘图数据。
-
-   运行源代码，会跳出Matplotlib的显示窗口。点击下方Save the figure按钮<img src="md_pic/Save the figure.png" alt="img" style="zoom:50%;" />，即可导出绘制出的现金流量图的`.png`文件。
+   运行源代码文件`main_window.py`，会跳出PyQt的UI界面。其他使用方法与方案1相同。
 
 如果使用者想更加深入地研究绘图工具程序的代码逻辑、对程序做进一步的修改以适应自己的绘图需求，Python源代码文件中已经写好了较为详细的注释，请自行阅读。
 
